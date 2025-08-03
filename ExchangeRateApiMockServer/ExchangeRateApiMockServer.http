@@ -1,0 +1,6 @@
+@ExchangeRateApiMockServer_HostAddress = http://localhost:5010
+
+GET {{ExchangeRateApiMockServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

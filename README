@@ -1,0 +1,226 @@
+# exchange-rate-comparison-api-mock-server
+
+Este servicio se encarga de mockear un servidor para el consumo de las apis.
+
+## Author
+* **Jomer Sanchez Sanchez**
+
+### Tecnologías
+
+- **.NET 8**: Plataforma de desarrollo para la creación de aplicaciones modernas con C# y el Framework de .NET.
+- **Visual Studio**: Entorno integrado de desarrollo para la creación de aplicaciones en .NET.
+- **Postman**: Plataforma para probar la llamada a nuestro servicio.
+
+### Instrucciones de Configuración para Windows
+- **SDK .NET 8**: Se debe tener instalado SDK completo incluyendo el runtime, de .NET 8 en el sistema.
+- **Descarga**: [SDK 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0).
+- **Instalación**: Sigue las instrucciones de instalación del SDK 8 en tu sistema.
+
+## 🌱 Variables de Entorno
+
+Este microservico utiliza varias variables de entorno para su configuración. A continuación se detallan las principales variables y su propósito.
+
+| Variable de Entorno                  | Descripción                                                    |
+| -------------------------------------|----------------------------------------------------------------|
+| `api1Key`                            | Api Key que servira para autenticar el Api #1                  |
+| `api2User`                           | Usuario para autenticar con Basic Auth el Api #2               |
+| `api2Pass`                           | Contraseña para autenticar con Basic Auth el Api #2            |
+| `api3Token`                          | Token para autenticar por Bearer Token el api #3               |
+
+**Los valores de estas variables se encuentran en los settings del API**
+
+## Endpoint API #1
+
+Endpoint ...
+> Método: POST
+> URL corriendo con http:
+```
+http://localhost:5010/api1/convert
+```
+
+> Request:
+
+> BODY:
+```JSON
+{
+  "from": "USD",
+  "to": "DOP",
+  "value": 100
+}
+```
+> HEADERS:
+```
+X-API-Key: abc123
+```
+>Response:
+```JSON
+{
+    "rate": 59.31
+}
+```
+
+En caso de no proporcional el header requerido, el servicio retornara el siguiente mensaje y codigo de respuesta
+
+> Método: POST
+
+> URL corriendo con http:
+```
+http://localhost:5010/api1/convert
+```
+
+> Request:
+
+> BODY:
+```JSON
+{
+  "from": "USD",
+  "to": "DOP",
+  "value": 100
+}
+```
+
+>Response:
+```JSON
+{
+    "code": 401,
+    "message": "Invalid API Key"
+}
+```
+
+## Endpoint API #2
+
+> Método: POST
+> URL corriendo con http:
+```
+http://localhost:5010/api2/convert
+```
+
+> Request:
+> BODY:
+```XML
+<XML>
+    <From>USD</From>
+    <To>DOP</To>
+    <Amount>100</Amount>
+</XML>
+```
+> AUTORIZACION:
+```
+Basic Auth: user:password
+```
+>Response:
+```XML
+<XML>
+    <Result>5813.00</Result>
+</XML>
+```
+En caso de que la autenticacion con usuario y password falle, el servicio retornara el siguiente mensaje y codigo de respuesta
+
+> Método: POST
+> URL corriendo con http:
+```
+http://localhost:5010/api2/convert
+```
+
+> Request:
+> BODY:
+```XML
+<XML>
+    <From>USD</From>
+    <To>DOP</To>
+    <Amount>100</Amount>
+</XML>
+```
+> AUTORIZACION:
+```
+Basic Auth: user:password
+```
+>Response:
+```XML
+<XML>
+  <Code>401</Code>
+  <Message>Invalid Basic Auth</Message>
+</XML>
+```
+
+## Endpoint API #3
+
+Endpoint ...
+> Método: POST
+> URL corriendo con http:
+```
+http://localhost:5010/api3/convert
+```
+
+> Request:
+
+> BODY:
+```JSON
+{
+  "exchange": {
+    "sourceCurrency": "USD",
+    "targetCurrency": "DOP",
+    "quantity": 100
+  }
+}
+```
+> AUTORIZACION:
+```
+Bearer Token: BearerToken
+```
+>Response:
+```JSON
+{
+    "statusCode": 200,
+    "message": "success",
+    "data": {
+        "total": 5951.00
+    }
+}
+```
+
+En caso de no proporcional el beaer token necesario, el servicio retornara el siguiente mensaje y codigo de respuesta
+
+> Método: POST
+
+> URL corriendo con http:
+```
+http://localhost:5010/api3/convert
+```
+
+> Request:
+
+> BODY:
+```JSON
+{
+  "from": "USD",
+  "to": "DOP",
+  "value": 100
+}
+```
+
+>Response:
+```JSON
+{
+    "code": 401,
+    "message": "Invalid Bearer Token"
+}
+```
+
+## Endpoint Documentación
+
+> URL Swagger
+> URL corriendo con IIS Express:
+```
+http://localhost:5010/swagger/index.html
+```
+
+## Guías Relacionadas
+
+### OpenAPI
+- [Microsoft.AspNetCore.OpenApi (8.0.13)](https://www.nuget.org/packages/Microsoft.AspNetCore.OpenApi/8.0.13)
+- [Documentación: ASP.NET Core OpenAPI Support](https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-openapi)
+
+### Otros
+- [Swashbuckle.AspNetCore (6.6.2)](https://www.nuget.org/packages/Swashbuckle.AspNetCore/6.6.2)
+- [Documentación: Swashbuckle.AspNetCore GitHub](https://github.com/domaindrivendev/Swashbuckle.AspNetCore)
