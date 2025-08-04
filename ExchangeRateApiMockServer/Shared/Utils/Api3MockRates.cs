@@ -4,7 +4,7 @@
     {
         private static readonly Dictionary<string, decimal> BaseRates = new()
         {
-            { "USD", 1.0m },
+            { "USD", 1.00m },
             { "EUR", 0.92m },
             { "DOP", 59.51m },
             { "GBP", 0.79m },
@@ -25,6 +25,7 @@
 
             // Simula una tasa de cambio de mercado real
             var rate = toRate / fromRate;
+            if (to == "USD") return rate;
 
             return Math.Round(rate, 2);
         }
