@@ -25,9 +25,8 @@
 
             // Simula una tasa de cambio de mercado real
             var rate = toRate / fromRate;
-            if (to == "USD") return rate;
 
-            return Math.Round(rate, 2);
+            return rate;
         }
 
         private static decimal RandomRate(decimal min, decimal max)
